@@ -4,6 +4,7 @@ import { OktaAuthModule, OktaCallbackComponent, OktaAuthService } from '@okta/ok
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PeopleComponent } from './people/people.component';
+import { MessageListComponent } from './messagelist/messagelist.component';
 
 const config = {
   issuer: 'https://dev-158343.okta.com/oauth2/default',
@@ -15,7 +16,8 @@ const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    PeopleComponent
+    PeopleComponent,
+    MessageListComponent
   ],
   imports: [
     BrowserModule,
