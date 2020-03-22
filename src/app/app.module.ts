@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PeopleComponent } from './people/people.component';
 import { MessageListComponent } from './messagelist/messagelist.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const config = {
   issuer: 'https://dev-158343.okta.com/oauth2/default',
-  redirectUri: 'http://localhost:4200/people',
+  redirectUri: 'http://localhost:4200/implicit/callback',
   clientId: '0oa2sycwwfuXyoi4J4x6',
   pkce: true
 }
@@ -22,7 +23,8 @@ const config = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    OktaAuthModule.initAuth(config)
+    OktaAuthModule.initAuth(config),
+    HttpClientModule
   ],
   providers: [OktaAuthService],
   bootstrap: [AppComponent]

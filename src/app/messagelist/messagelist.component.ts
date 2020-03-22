@@ -4,14 +4,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 interface Message {
-   date: String,
-   text: String
+  date: String,
+  text: String
 }
 
 @Component({
   template: `
+    <p>Messages</p><br/>
+    {{messages.length}}<br/>
     <div *ngIf="messages.length">
-      <li *ngFor="let message of messages">{{message.message}}</li>
+      <li *ngFor="let myMessage of messages">{{myMessage.text}}</li>
     </div>
   `
 })
@@ -24,19 +26,17 @@ export class MessageListComponent implements OnInit {
 
   async ngOnInit() {
     const accessToken = await this.oktaAuth.getAccessToken();
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + accessToken
-    });
-    const options = {
-      headers : headers
-    }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
     // Make request
-    this.http.get <Array<Message>>(
-      'http://localhost:{serverPort}/api/messages',
-      options
-    )
-    .pipe(
-      map((messages: Array<Message>) => messages.forEach(message => this.messages.push(message)))
-    );
+    this.http.get<Array<Message>>(
+      'http://localhost:8000/api/messages',
+      { headers }
+    ).pipe(map((res: any) => res.messages))
+      .subscribe((myMessages: Array<Message>) => {
+          myMessages.forEach(message => {
+            this.messages.push(message);
+          });
+        }
+      );
   }
 }
