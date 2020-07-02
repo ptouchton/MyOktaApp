@@ -6,6 +6,7 @@ import { OktaAuthService } from '@okta/okta-angular';
   template: `
   <button *ngIf="!isAuthenticated" (click)="login()"> Login </button>
   <button *ngIf="isAuthenticated" (click)="logout()"> Logout </button>
+  auth {{this.isAuthenticated}}
   <router-outlet></router-outlet>
 `,
 })
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit{
   }
 
   login() {
-    this.oktaAuth.loginRedirect('/people');
+    this.oktaAuth.loginRedirect('/profile');
   }
 
   logout() {
