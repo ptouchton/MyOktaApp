@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
@@ -9,7 +9,7 @@ import { OktaAuthService } from '@okta/okta-angular';
   <router-outlet></router-outlet>
 `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   isAuthenticated: boolean;
 
   constructor(public oktaAuth: OktaAuthService) {
